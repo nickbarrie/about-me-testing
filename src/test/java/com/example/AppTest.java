@@ -46,6 +46,20 @@ public class AppTest {
         Assert.assertTrue(profileImage.isDisplayed());
     }
 
+    @Test
+    public void testSocialLinks(){
+        driver.get("https://nickbarrie.github.io/about-me/");
+
+        WebElement emailLink = driver.findElement(By.cssSelector("a[href='mailto:nbarrie2@uwo.ca']"));
+        Assert.assertTrue(emailLink.isDisplayed());
+
+        WebElement linkedinLink = driver.findElement(By.cssSelector("a[href='https://www.linkedin.com/in/nick-w-barrie/']"));
+        Assert.assertTrue(linkedinLink.isDisplayed());
+
+        WebElement githubLink = driver.findElement(By.cssSelector("a[href='https://github.com/nickbarrie']"));
+        Assert.assertTrue(githubLink.isDisplayed());
+    }
+
 
     @AfterClass
     public static void tearDown() {
