@@ -28,16 +28,24 @@ public class AppTest {
 
 
     @Test
-    public void testLogin() {
+    public void testPageTitle() {
         driver.get("https://nickbarrie.github.io/about-me/");
-        // your test code here
-        WebElement nameElement = driver.findElement(By.className("profile-details"));
 
-        // Verify the text inside that element contains your name
-        String actualText = nameElement.getText();
-        Assert.assertTrue("Name not found on the page!", actualText.contains("Nick Barrie"));
-
+        String expectedDriverTitle = "Nick Barrie | Portfolio";
+        System.out.println("Driver Title expected: " + expectedDriverTitle);
+        System.out.println("Driver Title is: " + driver.getTitle());
+        Assert.assertEquals(expectedDriverTitle, driver.getTitle());
     }
+
+    @Test
+    public void testProfileImageDisplayed() {
+        driver.get("https://nickbarrie.github.io/about-me/");
+        WebElement profileImage = driver.findElement(By.cssSelector(".profile-img"));
+
+        System.out.println("Is the profile image available: " + profileImage.isDisplayed());
+        Assert.assertTrue(profileImage.isDisplayed());
+    }
+
 
     @AfterClass
     public static void tearDown() {
