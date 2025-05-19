@@ -1,38 +1,46 @@
 package com.example;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.AfterClass;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
-/**
- * Unit test for simple App.
- */
-public class AppTest 
-    extends TestCase
-{
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest( String testName )
-    {
-        super( testName );
+
+public class AppTest {
+
+    static WebDriver driver;
+
+
+    @BeforeClass
+    public static void setUp() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless"); // Run in headless mode
+        options.addArguments("--disable-gpu");
+        options.addArguments("--no-sandbox");
+
+        driver = new ChromeDriver(options);
     }
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
+
+    @Test
+    public void testLogin() {
+        driver.get("https://nickbarrie.github.io/about-me/");
+        // your test code here
+        WebElement nameElement = driver.findElement(By.className("profile-details"));
+
+        // Verify the text inside that element contains your name
+        String actualText = nameElement.getText();
+        Assert.assertTrue("Name not found on the page!", actualText.contains("Nick Barrie"));
+
     }
 
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
+    @AfterClass
+    public static void tearDown() {
+        driver.quit();
     }
 }
